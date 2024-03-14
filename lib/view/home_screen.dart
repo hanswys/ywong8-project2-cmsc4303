@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lesson6/controller/home_controller.dart';
 
@@ -12,7 +13,6 @@ class HomeScreen extends StatefulWidget {
 
 class HomeState extends State<HomeScreen> {
   late HomeController con;
-
   @override
   void initState() {
     super.initState();
@@ -42,7 +42,7 @@ class HomeState extends State<HomeScreen> {
           leading: const Icon(Icons.logout),
           title: const Text('Sign Out'),
           onTap: con.signOut,
-        )
+        ),
       ],
     ));
   }

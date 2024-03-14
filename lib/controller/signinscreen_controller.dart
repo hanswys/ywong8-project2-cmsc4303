@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lesson6/controller/auth_controller.dart';
+import 'package:lesson6/view/show_snackbar.dart';
 import 'package:lesson6/view/signin_screen.dart';
 
 class SignInScreenController {
@@ -15,6 +16,10 @@ class SignInScreenController {
     if (!currentState.validate()) return;
     currentState.save();
 
+    state.callSetState(() {
+      state.model.inProgress = true;
+    });
+
     try {
       await firebaseSignIn(
         email: state.model.email!,
@@ -22,10 +27,21 @@ class SignInScreenController {
       );
       //authStateChange() => stream
     } on FirebaseAuthException catch (e) {
+      state.callSetState(() => state.model.inProgress = false);
       var error = 'Sign in error! Reason ${e.code} ${e.message}';
       print('======== $error');
+      showSnackbar(
+        context: state.context,
+        message: error,
+        seconds: 10,
+      );
     } catch (e) {
       print('============= sign in error: $e');
+      showSnackbar(
+        context: state.context,
+        message: 'sing in error: $e',
+        seconds: 10,
+      );
     }
   }
 }
