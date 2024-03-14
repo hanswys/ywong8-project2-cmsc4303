@@ -64,7 +64,7 @@ class SignInState extends State<SignInScreen> {
                 onSaved: model.savePassword,
               ),
               FilledButton.tonal(
-                onPressed: () {},
+                onPressed: con.signIn,
                 child: const Text('Sign In'),
               ),
             ],
