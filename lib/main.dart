@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:lesson6/view/startdispatcher.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -15,9 +16,15 @@ class FirebaseTemplateApp extends StatelessWidget {
   const FirebaseTemplateApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(Object context) {
     return MaterialApp(
-      home: const Text('home'),
-    );
+        theme: ThemeData(
+          useMaterial3: true,
+          colorSchemeSeed: Colors.blue,
+        ),
+        initialRoute: StartDispatcher.routeName,
+        routes: {
+          StartDispatcher.routeName: (context) => const StartDispatcher(),
+        });
   }
 }
