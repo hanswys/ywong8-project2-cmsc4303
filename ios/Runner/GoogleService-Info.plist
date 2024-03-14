@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyB6ulAqcssE3or32D5Wx5IK4POJHVL4r14</string>
+	<key>GCM_SENDER_ID</key>
+	<string>203414158908</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>edu.uco.ywong8.cmsc4303.lesson6</string>
+	<key>PROJECT_ID</key>
+	<string>ywong8-cmsc4303-flutter</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ywong8-cmsc4303-flutter.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:203414158908:ios:2675941c680c1808df8d39</string>
+</dict>
+</plist>

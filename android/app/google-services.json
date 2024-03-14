@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "203414158908",
+    "project_id": "ywong8-cmsc4303-flutter",
+    "storage_bucket": "ywong8-cmsc4303-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:203414158908:android:f95f4edbba9dc9b4df8d39",
+        "android_client_info": {
+          "package_name": "edu.uco.ywong8.cmsc4303.lesson6"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpZN-A8ZHNCJcD0J6dxoHOIOYgtU1RJ0I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
