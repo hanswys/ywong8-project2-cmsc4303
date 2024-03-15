@@ -30,7 +30,10 @@ class HomeState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Home'),
       ),
-      body: Text(model.user.email!),
+      body: WillPopScope(
+        onWillPop: () => Future.value(false), // disable system back button
+        child: Text(model.user.email!),
+      ),
       drawer: drawerView(context),
     );
   }
