@@ -8,7 +8,7 @@ class CreateAccountModel {
   String? validateEmail(String? value) {
     if (value == null) return 'Email not entered';
     String email = value.trim();
-    if (!email.contains('@') && email.contains('.')) {
+    if (!(email.contains('@') && email.contains('.'))) {
       return 'Invalid email format';
     } else {
       return null;
