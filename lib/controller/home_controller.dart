@@ -9,4 +9,8 @@ class HomeController {
   Future<void> signOut() async {
     await firebaseSignOut();
   }
+
+  void onLongPress(int index) {
+     
+  }
 }

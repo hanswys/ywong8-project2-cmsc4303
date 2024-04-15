@@ -30,13 +30,38 @@ class HomeState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Home'),
       ),
-      body: WillPopScope(
-        onWillPop: () => Future.value(false), // disable system back button
-        child: Text(model.user.email!),
-      ),
+      body: const Text('test'),
       drawer: drawerView(context),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return const AlertDialog(
+                title: Text('Add a New Item'),
+                content: TextField(
+                  decoration: InputDecoration(hintText: 'Name'),
+                ),
+                actions: [
+                  TextButton(onPressed: null, child: Text('Create')),
+                  TextButton(onPressed: null, child: Text('Cancel')),
+                ],
+              );
+            },
+          );
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
+
+  // Widget bodyView() {
+  //   if (model.photoMemoList == null) {
+  //     return const Center(child: CircularProgressIndicator());
+  //   } else {
+  //     return showPhotoMemoList();
+  //   }
+  // }
 
   Widget drawerView(BuildContext context) {
     return Drawer(
