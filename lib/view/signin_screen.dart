@@ -37,45 +37,95 @@ class SignInState extends State<SignInScreen> {
     );
   }
 
+  // Widget signInForm() {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(16.0),
+  //     child: SingleChildScrollView(
+  //       child: Form(
+  //         key: formKey,
+  //         child: Column(
+  //           children: [
+  //             TextFormField(
+  //               decoration: const InputDecoration(
+  //                 hintText: 'Email address:',
+  //               ),
+  //               keyboardType: TextInputType.emailAddress,
+  //               autocorrect: false,
+  //               validator: model.validateEmail,
+  //               onSaved: model.saveEmail,
+  //             ),
+  //             TextFormField(
+  //               decoration: const InputDecoration(
+  //                 hintText: 'password:',
+  //               ),
+  //               obscureText: true,
+  //               autocorrect: false,
+  //               validator: model.validatePassword,
+  //               onSaved: model.savePassword,
+  //             ),
+  //             FilledButton.tonal(
+  //               onPressed: con.signIn,
+  //               child: const Text('Sign In'),
+  //             ),
+  //             const SizedBox(height: 20.0),
+  //             OutlinedButton(
+  //               onPressed: con.gotoCreateAccount,
+  //               child: const Text('No account yet? Create a new account.'),
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
   Widget signInForm() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: SingleChildScrollView(
-        child: Form(
-          key: formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Email address:',
-                ),
-                keyboardType: TextInputType.emailAddress,
-                autocorrect: false,
-                validator: model.validateEmail,
-                onSaved: model.saveEmail,
+    return Column(
+      children: [
+        Text(
+          'My Inventory',
+          style: Theme.of(context).textTheme.headlineLarge,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SingleChildScrollView(
+            child: Form(
+              key: formKey,
+              child: Column(
+                children: [
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: 'Email address:',
+                    ),
+                    keyboardType: TextInputType.emailAddress,
+                    autocorrect: false,
+                    validator: model.validateEmail,
+                    onSaved: model.saveEmail,
+                  ),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: 'password:',
+                    ),
+                    obscureText: true,
+                    autocorrect: false,
+                    validator: model.validatePassword,
+                    onSaved: model.savePassword,
+                  ),
+                  FilledButton.tonal(
+                    onPressed: con.signIn,
+                    child: const Text('Sign In'),
+                  ),
+                  const SizedBox(height: 20.0),
+                  OutlinedButton(
+                    onPressed: con.gotoCreateAccount,
+                    child: const Text('No account yet? Create a new account.'),
+                  ),
+                ],
               ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'password:',
-                ),
-                obscureText: true,
-                autocorrect: false,
-                validator: model.validatePassword,
-                onSaved: model.savePassword,
-              ),
-              FilledButton.tonal(
-                onPressed: con.signIn,
-                child: const Text('Sign In'),
-              ),
-              const SizedBox(height: 20.0),
-              OutlinedButton(
-                onPressed: con.gotoCreateAccount,
-                child: const Text('No account yet? Create a new account.'),
-              ),
-            ],
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }
