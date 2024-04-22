@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lesson6/controller/auth_controller.dart';
 import 'package:lesson6/controller/createinventory_controller.dart';
 import 'package:lesson6/model/createinventory_model.dart';
+import 'package:lesson6/model/inventory_model.dart';
 
 class CreateInventoryScreen extends StatefulWidget {
   const CreateInventoryScreen({super.key});
@@ -47,34 +48,13 @@ class CreateInventoryState extends State<CreateInventoryScreen> {
             key: formKey,
             child: Column(
               children: [
-                // photoPreview(),
                 TextFormField(
                   decoration: const InputDecoration(
                     hintText: 'Title',
                   ),
                   autocorrect: true,
-                  // validator: PhotoMemo.validateTitle,
-                  // onSaved: model.onSavedTitle,
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    hintText: 'memo',
-                  ),
-                  autocorrect: true,
-                  keyboardType: TextInputType.multiline,
-                  maxLines: 6,
-                  // validator: PhotoMemo.validateMemo,
-                  // onSaved: model.onSavedMemo,
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    hintText: 'Shared with (email list separated by , ;)',
-                  ),
-                  autocorrect: false,
-                  keyboardType: TextInputType.multiline,
-                  maxLines: 2,
-                  // validator: PhotoMemo.validateSharedWith,
-                  // onSaved: model.onSavedSharedWith,
+                  validator: Inventory.validateTitle,
+                  onSaved: model.onSavedTitle,
                 ),
               ],
             ),

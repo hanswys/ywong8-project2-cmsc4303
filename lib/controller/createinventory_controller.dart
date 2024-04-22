@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lesson6/view/createinventory_screen.dart';
+import 'package:lesson6/view/show_snackbar.dart';
 
 class CreateInventoryController {
   CreateInventoryState state;
@@ -29,9 +30,8 @@ class CreateInventoryController {
   //     );
   //     state.callSetState(
   //         () => state.model.progressMessage = 'Saving PhotoMemo ...');
-  //     state.model.tempMemo.photoFilename = filename;
-  //     state.model.tempMemo.photoURL = downloadURL;
-  //     state.model.tempMemo.createdBy = state.model.user.email!;
+  //     state.model.tempInventory.photoURL = downloadURL;
+  //     state.model.tempInventory.createdBy = state.model.user.email!;
   //     state.model.tempMemo.timestamp = DateTime.now();
   //     String docId = await addPhotoMemo(photoMemo: state.model.tempMemo);
   //     state.model.tempMemo.docId = docId;

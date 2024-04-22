@@ -15,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeState extends State<HomeScreen> {
+  late TextEditingController controller;
   late HomeController con;
   late HomeModel model;
   @override
@@ -22,6 +23,14 @@ class HomeState extends State<HomeScreen> {
     super.initState();
     con = HomeController(this);
     model = HomeModel(currentUser!);
+    controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+
+    super.dispose();
   }
 
   void callSetState(fn) => setState(fn);
@@ -35,28 +44,55 @@ class HomeState extends State<HomeScreen> {
       body: bodyView(),
       drawer: drawerView(context),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          con.gotoCreateInventory;
-          // showDialog(
-          //   context: context,
-          //   builder: (BuildContext context) {
-          //     return AlertDialog(
-          //       title: const Text('Add a New Item'),
-          //       content: const TextField(
-          //         decoration: InputDecoration(hintText: 'Name'),
-          //       ),
-          //       actions: [
-          //         TextButton(onPressed: con.onSave, child: Text('Create')),
-          //         TextButton(
-          //             onPressed: con.onCancel, child: const Text('Cancel')),
-          //       ],
-          //     );
-          //   },
-          // );
+        onPressed: () async {
+          final name = await openDialog();
+          print('${name}');
         },
+        // con.gotoCreateInventory,
+        // print('click');
+        // showDialog(
+        //   context: context,
+        //   builder: (BuildContext context) {
+        //     return AlertDialog(
+        //       title: const Text('Add a New Item'),
+        //       content: const TextField(
+        //         decoration: InputDecoration(hintText: 'Name'),
+        //       ),
+        //       actions: [
+        //         TextButton(onPressed: submit, child: Text('Create')),
+        //         TextButton(
+        //             onPressed: con.onCancel, child: const Text('Cancel')),
+        //       ],
+        //     );
+        //   },
+        // );
         child: const Icon(Icons.add),
       ),
     );
+  }
+
+  Future openDialog() => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Add a New Item'),
+          content: TextField(
+            autofocus: true,
+            decoration: const InputDecoration(hintText: 'Name'),
+            controller: controller,
+          ),
+          actions: [
+            TextButton(onPressed: submit, child: Text('Create')),
+            TextButton(onPressed: onCancel, child: Text('Cancel')),
+          ],
+        ),
+      );
+
+  void submit() {
+    Navigator.of(context).pop(controller.text);
+  }
+
+  void onCancel() {
+    Navigator.of(context).pop();
   }
 
   Widget bodyView() {
