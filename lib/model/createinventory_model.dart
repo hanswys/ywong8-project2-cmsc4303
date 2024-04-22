@@ -20,9 +20,9 @@ class CreateInventoryModel {
     }
   }
 
-  void onSavedQuantity(String? value) {
-    if (value != null) {
-      tempInventory.quantity = value;
-    }
-  }
+  // void onSavedQuantity(String? value) {
+  //   if (value != null) {
+  //     tempInventory.quantity = value;
+  //   }
+  // }
 }

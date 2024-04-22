@@ -52,7 +52,7 @@ class HomeController {
         state.context, CreateInventoryScreen.routeName);
     if (inventory == null) {
       // create screen canceled by BACK button
-      // return;
+      return;
     }
     var newInventory = inventory as Inventory;
     state.callSetState(() {
@@ -61,9 +61,5 @@ class HomeController {
         newInventory,
       );
     });
-
-    // void gotoCreateInventory() {
-    //   Navigator.pushNamed(state.context, CreateInventoryScreen.routeName);
-    // }
   }
 }

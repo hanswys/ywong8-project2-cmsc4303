@@ -22,6 +22,9 @@ class CreateInventoryController {
       state.model.tempInventory.createdBy = state.model.user.email!;
       String docId = await addInventory(inventory: state.model.tempInventory);
       state.model.tempInventory.docId = docId;
+      if (state.mounted) {
+        Navigator.of(state.context).pop(state.model.tempInventory);
+      }
       state.callSetState(() => state.model.progressMessage = null);
     } catch (e) {
       state.callSetState(() => state.model.progressMessage = null);

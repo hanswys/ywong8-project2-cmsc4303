@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lesson6/controller/auth_controller.dart';
-import 'package:lesson6/controller/createinventory_controller.dart';
 import 'package:lesson6/controller/home_controller.dart';
-import 'package:lesson6/model/createinventory_model.dart';
 import 'package:lesson6/model/inventory_model.dart';
 
 import '../model/home_model.dart';
@@ -27,7 +25,6 @@ class HomeState extends State<HomeScreen> {
     super.initState();
     con = HomeController(this);
     model = HomeModel(currentUser!);
-    // controller = TextEditingController();
   }
 
   @override
