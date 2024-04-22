@@ -36,23 +36,23 @@ class HomeState extends State<HomeScreen> {
       drawer: drawerView(context),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text('Add a New Item'),
-                content: const TextField(
-                  decoration: InputDecoration(hintText: 'Name'),
-                  // controller: controller,
-                ),
-                actions: [
-                  TextButton(onPressed: null, child: Text('Create')),
-                  TextButton(
-                      onPressed: con.onCancel, child: const Text('Cancel')),
-                ],
-              );
-            },
-          );
+          con.gotoCreateInventory;
+          // showDialog(
+          //   context: context,
+          //   builder: (BuildContext context) {
+          //     return AlertDialog(
+          //       title: const Text('Add a New Item'),
+          //       content: const TextField(
+          //         decoration: InputDecoration(hintText: 'Name'),
+          //       ),
+          //       actions: [
+          //         TextButton(onPressed: con.onSave, child: Text('Create')),
+          //         TextButton(
+          //             onPressed: con.onCancel, child: const Text('Cancel')),
+          //       ],
+          //     );
+          //   },
+          // );
         },
         child: const Icon(Icons.add),
       ),

@@ -1,26 +1,26 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lesson6/model/inventory_model.dart';
 
-class CreateInventory {
+class CreateInventoryModel {
   User user;
   late Inventory tempInventory;
   String? progressMessage;
 
-  CreateMemoModel({required this.user}) {
+  CreateInventoryModel({required this.user}) {
     tempInventory = Inventory(
       createdBy: '',
-      name: '',
-      quantity: 0,
+      title: '',
+      quantity: '',
     );
   }
 
-  void onSavedName(String? value) {
+  void onSavedTitle(String? value) {
     if (value != null) {
-      tempInventory.name = value;
+      tempInventory.title = value;
     }
   }
 
-  void onSavedQuantity(int? value) {
+  void onSavedQuantity(String? value) {
     if (value != null) {
       tempInventory.quantity = value;
     }

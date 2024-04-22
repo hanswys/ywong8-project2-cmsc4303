@@ -116,10 +116,6 @@ class SignInState extends State<SignInScreen> {
                     child: const Text('Sign In'),
                   ),
                   const SizedBox(height: 20.0),
-                  OutlinedButton(
-                    onPressed: con.gotoCreateAccount,
-                    child: const Text('No account yet? Create a new account.'),
-                  ),
                 ],
               ),
             ),
