@@ -127,12 +127,6 @@ class HomeState extends State<HomeScreen> {
         ),
       );
     } else {
-      // return Center(
-      //   child: Text(
-      //     'Inventory Found!',
-      //     style: Theme.of(context).textTheme.titleLarge,
-      //   ),
-      // );
       return ListView.builder(
         itemCount: model.inventoryList!.length,
         // separatorBuilder: (BuildContext context, int index) =>
@@ -141,17 +135,54 @@ class HomeState extends State<HomeScreen> {
           return Column(
             children: [
               ListTile(
+                selected: model.selectedIndex == index,
+                selectedColor: Colors.redAccent[100],
+                subtitle: index == model.selectedIndex ? selectedIcon() : null,
                 title: Text('${inventory.title} (qty: ${inventory.quantity}) '),
                 tileColor: Colors.green,
+                onLongPress: () => con.onLongPress(index),
               ),
               const SizedBox(
                 height: 10,
-              )
+              ),
             ],
           );
         },
       );
     }
+  }
+
+  Widget selectedIcon() {
+    // Inventory inventory = model.inventoryList![index];
+    return Row(
+      children: [
+        IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.remove),
+          color: Colors.red,
+        ),
+        // IconButton(Icons.remove, color: Colors.red), // Example icon
+        SizedBox(width: 8),
+        Text('0'),
+        IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.add),
+          color: Colors.purple,
+        ), // Adjust spacing as needed
+        SizedBox(width: 12),
+        IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.check),
+          color: Colors.purple,
+        ), // Adjust spacing as needed
+        SizedBox(width: 12),
+        IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.cancel),
+          color: Colors.purple,
+        ), // Adjust spacing as needed
+      ],
+    );
   }
 
   Widget drawerView(BuildContext context) {

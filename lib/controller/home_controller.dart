@@ -15,7 +15,16 @@ class HomeController {
     await firebaseSignOut();
   }
 
-  void onLongPress(int index) {}
+  void onLongPress(int index) {
+    state.callSetState(() {
+      if (state.model.selectedIndex == null ||
+          state.model.selectedIndex != index) {
+        state.model.selectedIndex = index;
+      } else {
+        state.model.selectedIndex = null; // cancel selection
+      }
+    });
+  }
 
   void onCancel() {
     // state.callSetState(() {
