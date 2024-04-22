@@ -25,6 +25,7 @@ class HomeState extends State<HomeScreen> {
     super.initState();
     con = HomeController(this);
     model = HomeModel(currentUser!);
+    con.loadInventoryList();
   }
 
   @override
@@ -109,8 +110,48 @@ class HomeState extends State<HomeScreen> {
     //     ),
     //   );
     // }
-    //   // return showPhotoMemoList();
-    return const Text('found!');
+    // return showInventoryList();
+    if (model.inventoryList == null) {
+      return const Center(child: CircularProgressIndicator());
+    } else {
+      return showInventoryList();
+    }
+  }
+
+  Widget showInventoryList() {
+    if (model.inventoryList!.isEmpty) {
+      return Center(
+        child: Text(
+          'No Inventory Found!',
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+      );
+    } else {
+      // return Center(
+      //   child: Text(
+      //     'Inventory Found!',
+      //     style: Theme.of(context).textTheme.titleLarge,
+      //   ),
+      // );
+      return ListView.builder(
+        itemCount: model.inventoryList!.length,
+        // separatorBuilder: (BuildContext context, int index) =>
+        itemBuilder: (BuildContext context, int index) {
+          Inventory inventory = model.inventoryList![index];
+          return Column(
+            children: [
+              ListTile(
+                title: Text('${inventory.title} (qty: ${inventory.quantity}) '),
+                tileColor: Colors.green,
+              ),
+              const SizedBox(
+                height: 10,
+              )
+            ],
+          );
+        },
+      );
+    }
   }
 
   Widget drawerView(BuildContext context) {

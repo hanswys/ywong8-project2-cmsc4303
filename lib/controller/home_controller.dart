@@ -62,4 +62,22 @@ class HomeController {
       );
     });
   }
+
+  void loadInventoryList() async {
+    try {
+      state.model.inventoryList =
+          await getInventoryList(email: state.model.user.email!);
+    } catch (e) {
+      print('======== loading error: $e');
+      if (state.mounted) {
+        showSnackbar(
+          context: state.context,
+          message: 'Failed to load PhotoMemo list: $e',
+          seconds: 10,
+        );
+      }
+    } finally {
+      state.callSetState(() {});
+    }
+  }
 }
