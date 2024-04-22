@@ -24,27 +24,31 @@ class HomeState extends State<HomeScreen> {
     model = HomeModel(currentUser!);
   }
 
+  void callSetState(fn) => setState(fn);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
       ),
-      body: const Text('test'),
+      body: bodyView(),
       drawer: drawerView(context),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
             context: context,
             builder: (BuildContext context) {
-              return const AlertDialog(
-                title: Text('Add a New Item'),
-                content: TextField(
+              return AlertDialog(
+                title: const Text('Add a New Item'),
+                content: const TextField(
                   decoration: InputDecoration(hintText: 'Name'),
+                  // controller: controller,
                 ),
                 actions: [
                   TextButton(onPressed: null, child: Text('Create')),
-                  TextButton(onPressed: null, child: Text('Cancel')),
+                  TextButton(
+                      onPressed: con.onCancel, child: const Text('Cancel')),
                 ],
               );
             },
@@ -55,13 +59,18 @@ class HomeState extends State<HomeScreen> {
     );
   }
 
-  // Widget bodyView() {
-  //   if (model.photoMemoList == null) {
-  //     return const Center(child: CircularProgressIndicator());
-  //   } else {
-  //     return showPhotoMemoList();
-  //   }
-  // }
+  Widget bodyView() {
+    // if (model.inventoryList!.isEmpty) {
+    //   return Center(
+    //     child: Text(
+    //       'No Inventory Found!',
+    //       style: Theme.of(context).textTheme.titleLarge,
+    //     ),
+    //   );
+    // }
+    //   // return showPhotoMemoList();
+    return const Text('found!');
+  }
 
   Widget drawerView(BuildContext context) {
     return Drawer(
