@@ -10,7 +10,7 @@ class CreateInventoryModel {
     tempInventory = Inventory(
       createdBy: '',
       title: '',
-      quantity: '',
+      quantity: '0',
     );
   }
 

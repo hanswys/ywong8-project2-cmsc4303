@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lesson6/controller/auth_controller.dart';
+import 'package:lesson6/controller/createinventory_controller.dart';
 import 'package:lesson6/controller/home_controller.dart';
+import 'package:lesson6/model/createinventory_model.dart';
+import 'package:lesson6/model/inventory_model.dart';
 
 import '../model/home_model.dart';
 
@@ -18,12 +21,13 @@ class HomeState extends State<HomeScreen> {
   late TextEditingController controller;
   late HomeController con;
   late HomeModel model;
+
   @override
   void initState() {
     super.initState();
     con = HomeController(this);
     model = HomeModel(currentUser!);
-    controller = TextEditingController();
+    // controller = TextEditingController();
   }
 
   @override
@@ -44,10 +48,12 @@ class HomeState extends State<HomeScreen> {
       body: bodyView(),
       drawer: drawerView(context),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final name = await openDialog();
-          print('${name}');
-        },
+        onPressed: con.gotoCreateInventory,
+        // async {
+        //   final name = await openDialog();
+
+        //   // print('${name}');
+        // },
         // con.gotoCreateInventory,
         // print('click');
         // showDialog(
@@ -75,13 +81,15 @@ class HomeState extends State<HomeScreen> {
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('Add a New Item'),
-          content: TextField(
+          content: TextFormField(
             autofocus: true,
             decoration: const InputDecoration(hintText: 'Name'),
-            controller: controller,
+            // controller: controller,
+            validator: Inventory.validateTitle,
+            onSaved: model.onSavedTitle,
           ),
           actions: [
-            TextButton(onPressed: submit, child: Text('Create')),
+            TextButton(onPressed: con.save, child: Text('Create')),
             TextButton(onPressed: onCancel, child: Text('Cancel')),
           ],
         ),

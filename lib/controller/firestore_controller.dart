@@ -4,8 +4,9 @@ import 'package:lesson6/model/inventory_model.dart';
 
 const inventoryCollection = 'inventory';
 
-addInventory({required Inventory inventory}) async {
-  FirebaseFirestore.instance
+Future<String> addInventory({required Inventory inventory}) async {
+  DocumentReference ref = await FirebaseFirestore.instance
       .collection(inventoryCollection)
       .add(inventory.toFirestoreDoc());
+  return ref.id;
 }

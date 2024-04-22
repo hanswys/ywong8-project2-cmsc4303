@@ -7,4 +7,12 @@ class HomeModel {
   HomeModel(this.user);
   bool createInProgress = false;
   int? selectedIndex;
+  late Inventory tempInventory;
+  String? progressMessage;
+
+  void onSavedTitle(String? value) {
+    if (value != null) {
+      tempInventory.title = value;
+    }
+  }
 }

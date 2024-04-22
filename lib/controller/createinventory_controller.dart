@@ -1,4 +1,7 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
+import 'package:lesson6/controller/firestore_controller.dart';
 import 'package:lesson6/view/createinventory_screen.dart';
 import 'package:lesson6/view/show_snackbar.dart';
 
@@ -7,7 +10,32 @@ class CreateInventoryController {
 
   CreateInventoryController(this.state);
 
-  // Future<void> save() async {
+  Future<void> save() async {
+    FormState? currentState = state.formKey.currentState;
+    if (currentState == null) return;
+    if (!currentState.validate()) return;
+
+    currentState.save();
+    try {
+      state.callSetState(
+          () => state.model.progressMessage = 'Saving PhotoMemo ...');
+      state.model.tempInventory.createdBy = state.model.user.email!;
+      String docId = await addInventory(inventory: state.model.tempInventory);
+      state.model.tempInventory.docId = docId;
+      state.callSetState(() => state.model.progressMessage = null);
+    } catch (e) {
+      state.callSetState(() => state.model.progressMessage = null);
+      print('************** Save photomemo erro $e');
+      if (state.mounted) {
+        showSnackbar(
+          context: state.context,
+          message: 'Save photomemo error $e',
+          seconds: 10,
+        );
+      }
+    }
+  }
+}
   //   FormState? currentState = state.formKey.currentState;
   //   if (currentState == null) return;
   //   if (!currentState.validate()) return;
@@ -49,5 +77,4 @@ class CreateInventoryController {
   //       );
   //     }
   //   }
-  // }
-}
+  // 

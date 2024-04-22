@@ -36,7 +36,7 @@ class CreateInventoryState extends State<CreateInventoryScreen> {
         title: const Text('Create New'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: con.save,
             icon: const Icon(Icons.check),
           ),
         ],
