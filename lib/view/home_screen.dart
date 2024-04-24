@@ -120,7 +120,6 @@ class HomeState extends State<HomeScreen> {
     } else {
       return ListView.builder(
         itemCount: model.inventoryList!.length,
-        // separatorBuilder: (BuildContext context, int index) =>
         itemBuilder: (BuildContext context, int index) {
           Inventory inventory = model.inventoryList![index];
           return Column(
@@ -146,37 +145,42 @@ class HomeState extends State<HomeScreen> {
   }
 
   Widget selectedIcon(String quantity) {
-    // Inventory inventory = model.inventoryList![index];
     int numberquantity = int.parse(quantity);
+    if (model.isEdit == false) {
+      model.tempQuantity = numberquantity;
+      model.isEdit = true;
+    }
+
     return Row(
       children: [
         IconButton(
-          onPressed: () {},
+          onPressed: model.tempQuantity > 0 ? con.minus : null,
           icon: Icon(Icons.remove),
           color: Colors.red,
         ),
-        // IconButton(Icons.remove, color: Colors.red), // Example icon
         SizedBox(width: 8),
-        Text('${numberquantity}'),
+        Text('${model.tempQuantity}'),
         IconButton(
-          onPressed: () {
-            // numberquantity++;
-          },
+          onPressed: con.add,
           icon: Icon(Icons.add),
           color: Colors.purple,
-        ), // Adjust spacing as needed
+        ),
         SizedBox(width: 12),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            // con.save;
+          },
           icon: Icon(Icons.check),
           color: Colors.purple,
-        ), // Adjust spacing as needed
+        ),
         SizedBox(width: 12),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            // con.cancel
+          },
           icon: Icon(Icons.cancel),
           color: Colors.purple,
-        ), // Adjust spacing as needed
+        ),
       ],
     );
   }

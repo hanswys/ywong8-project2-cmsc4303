@@ -51,7 +51,6 @@ class Inventory {
   }
 
   static String? validateTitle(String? value) {
-    String? lowerCase = value?.toLowerCase();
     return value == null || value.trim().length < 2 ? 'Title too short' : null;
   }
 }

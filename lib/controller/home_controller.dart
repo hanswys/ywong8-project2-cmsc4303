@@ -20,20 +20,11 @@ class HomeController {
       if (state.model.selectedIndex == null ||
           state.model.selectedIndex != index) {
         state.model.selectedIndex = index;
+        state.model.isEdit = false;
       } else {
         state.model.selectedIndex = null; // cancel selection
       }
     });
-  }
-
-  void onCancel() {
-    // state.callSetState(() {
-    // Navigator.of(state.context).pop();
-    // });
-  }
-
-  void onSave() {
-    // Navigator.of(context).pop(controller.text);
   }
 
   Future<void> save() async {
@@ -61,12 +52,6 @@ class HomeController {
     final inventory = await Navigator.pushNamed(
         state.context, CreateInventoryScreen.routeName);
     if (inventory == null) {
-      // create screen canceled by BACK button
-      // state.callSetState(() {
-      //   state.model.inventoryList!.sort((a, b) {
-      //     return a.title.compareTo(b.title);
-      //   });
-      // });
       return;
     }
 
@@ -105,5 +90,23 @@ class HomeController {
         });
       });
     }
+  }
+
+  void delete() {}
+
+  void setUpdatedFields() {}
+
+  void add() {
+    state.callSetState(() {
+      state.model.tempQuantity++;
+      print('${state.model.tempQuantity}');
+    });
+  }
+
+  void minus() {
+    state.callSetState(() {
+      state.model.tempQuantity--;
+      print('${state.model.tempQuantity}');
+    });
   }
 }
