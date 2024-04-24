@@ -24,5 +24,31 @@ Future<List<Inventory>> getInventoryList({required String email}) async {
       result.add(p);
     }
   }
+
   return result;
 }
+
+// Future<void> displayInventoryNames({required String email}) async {
+//   List<Inventory> inventoryList = await getInventoryList(email: email);
+//   // Extract titles from the inventory items
+//   // List<String> inventoryNames =
+//   //     inventoryList.map((item) => item.title).toList();
+//   state.model.inventoryNameList =
+//       inventoryList.map((item) => item.title).toList();
+
+//   // Display the inventory names
+//   print('Inventory Names:');
+//   for (var name in inventoryNames) {
+//     print(name);
+//   }
+// }
+
+// Future<void> updatePhotoMemo({
+//   required String docId,
+//   required Map<String, dynamic> update,
+// }) async {
+//   await FirebaseFirestore.instance
+//       .collection(inventoryCollection)
+//       .doc(docId)
+//       .update(update);
+// }

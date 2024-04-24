@@ -1,3 +1,5 @@
+import 'package:lesson6/controller/firestore_controller.dart';
+
 enum DocKeyPhotoMemo { title, createdBy, quantity }
 
 class Inventory {
@@ -5,6 +7,7 @@ class Inventory {
   String createdBy; // email
   String title;
   String quantity;
+  List<Inventory>? inventoryNameList;
 
   Inventory({
     this.docId,
@@ -23,12 +26,12 @@ class Inventory {
     return copy;
   }
 
-  void copyFrom(Inventory i) {
-    docId = i.docId;
-    createdBy = i.createdBy;
-    title = title;
-    quantity = quantity;
-  }
+  // void copyFrom(Inventory i) {
+  //   docId = i.docId;
+  //   createdBy = i.createdBy;
+  //   title = title;
+  //   quantity = quantity;
+  // }
 
   factory Inventory.fromFirestoreDoc({
     required Map<String, dynamic> doc,
@@ -50,7 +53,7 @@ class Inventory {
     };
   }
 
-  static String? validateTitle(String? value) {
+  static String? validateTitle(String? value, List<Inventory> inventoryList) {
     return value == null || value.trim().length < 2 ? 'Title too short' : null;
   }
 }

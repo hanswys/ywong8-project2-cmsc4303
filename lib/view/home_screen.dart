@@ -19,6 +19,7 @@ class HomeState extends State<HomeScreen> {
   late TextEditingController controller;
   late HomeController con;
   late HomeModel model;
+  final formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -46,60 +47,42 @@ class HomeState extends State<HomeScreen> {
       body: bodyView(),
       drawer: drawerView(context),
       floatingActionButton: FloatingActionButton(
-        onPressed: con.gotoCreateInventory,
-        // async {
-        //   final name = await openDialog();
-
-        //   // print('${name}');
-        // },
-        // con.gotoCreateInventory,
-        // print('click');
-        // showDialog(
-        //   context: context,
-        //   builder: (BuildContext context) {
-        //     return AlertDialog(
-        //       title: const Text('Add a New Item'),
-        //       content: const TextField(
-        //         decoration: InputDecoration(hintText: 'Name'),
-        //       ),
-        //       actions: [
-        //         TextButton(onPressed: submit, child: Text('Create')),
-        //         TextButton(
-        //             onPressed: con.onCancel, child: const Text('Cancel')),
-        //       ],
-        //     );
-        //   },
-        // );
+        onPressed: () async {
+          await openDialog();
+        },
         child: const Icon(Icons.add),
       ),
     );
   }
 
-  Future openDialog() => showDialog(
+  Future<void> openDialog() => showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('Add a New Item'),
-          content: TextFormField(
-            autofocus: true,
-            decoration: const InputDecoration(hintText: 'Name'),
-            // controller: controller,
-            validator: Inventory.validateTitle,
-            onSaved: model.onSavedTitle,
+          content: Form(
+            key: formKey,
+            child: TextFormField(
+              autofocus: true,
+              decoration: const InputDecoration(hintText: 'Name'),
+              validator: HomeModel.validateTitle,
+              onSaved: model.onSavedTitle,
+            ),
           ),
           actions: [
-            TextButton(onPressed: con.save, child: Text('Create')),
-            TextButton(onPressed: onCancel, child: Text('Cancel')),
+            TextButton(
+                onPressed: () {
+                  print('click');
+                  con.save();
+                },
+                child: const Text('Create')),
+            TextButton(
+                onPressed: () {
+                  con.onCancel();
+                },
+                child: const Text('Cancel')),
           ],
         ),
       );
-
-  void submit() {
-    Navigator.of(context).pop(controller.text);
-  }
-
-  void onCancel() {
-    Navigator.of(context).pop();
-  }
 
   Widget bodyView() {
     if (model.inventoryList == null) {
@@ -125,11 +108,11 @@ class HomeState extends State<HomeScreen> {
           return Column(
             children: [
               ListTile(
-                selected: model.selectedIndex == index,
-                selectedColor: Colors.redAccent[100],
-                subtitle: index == model.selectedIndex
-                    ? selectedIcon(model.inventoryList![index].quantity)
-                    : null,
+                // selected: model.selectedIndex == index,
+                // selectedColor: Colors.redAccent[100],
+                // subtitle: index == model.selectedIndex
+                //     ? selectedIcon(model.inventoryList![index].quantity)
+                //     : null,
                 title: Text('${inventory.title} (qty: ${inventory.quantity}) '),
                 tileColor: Colors.green,
                 onLongPress: () => con.onLongPress(index),
@@ -167,17 +150,13 @@ class HomeState extends State<HomeScreen> {
         ),
         SizedBox(width: 12),
         IconButton(
-          onPressed: () {
-            // con.save;
-          },
+          onPressed: con.update,
           icon: Icon(Icons.check),
           color: Colors.purple,
         ),
         SizedBox(width: 12),
         IconButton(
-          onPressed: () {
-            // con.cancel
-          },
+          onPressed: con.cancel,
           icon: Icon(Icons.cancel),
           color: Colors.purple,
         ),
