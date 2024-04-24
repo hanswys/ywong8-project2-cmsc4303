@@ -102,15 +102,6 @@ class HomeState extends State<HomeScreen> {
   }
 
   Widget bodyView() {
-    // if (model.inventoryList!.isEmpty) {
-    //   return Center(
-    //     child: Text(
-    //       'No Inventory Found!',
-    //       style: Theme.of(context).textTheme.titleLarge,
-    //     ),
-    //   );
-    // }
-    // return showInventoryList();
     if (model.inventoryList == null) {
       return const Center(child: CircularProgressIndicator());
     } else {
@@ -137,7 +128,9 @@ class HomeState extends State<HomeScreen> {
               ListTile(
                 selected: model.selectedIndex == index,
                 selectedColor: Colors.redAccent[100],
-                subtitle: index == model.selectedIndex ? selectedIcon() : null,
+                subtitle: index == model.selectedIndex
+                    ? selectedIcon(model.inventoryList![index].quantity)
+                    : null,
                 title: Text('${inventory.title} (qty: ${inventory.quantity}) '),
                 tileColor: Colors.green,
                 onLongPress: () => con.onLongPress(index),
@@ -152,8 +145,9 @@ class HomeState extends State<HomeScreen> {
     }
   }
 
-  Widget selectedIcon() {
+  Widget selectedIcon(String quantity) {
     // Inventory inventory = model.inventoryList![index];
+    int numberquantity = int.parse(quantity);
     return Row(
       children: [
         IconButton(
@@ -163,9 +157,11 @@ class HomeState extends State<HomeScreen> {
         ),
         // IconButton(Icons.remove, color: Colors.red), // Example icon
         SizedBox(width: 8),
-        Text('0'),
+        Text('${numberquantity}'),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            // numberquantity++;
+          },
           icon: Icon(Icons.add),
           color: Colors.purple,
         ), // Adjust spacing as needed

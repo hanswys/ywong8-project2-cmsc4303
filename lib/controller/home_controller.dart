@@ -35,6 +35,7 @@ class HomeController {
   void onSave() {
     // Navigator.of(context).pop(controller.text);
   }
+
   Future<void> save() async {
     try {
       state.callSetState(
@@ -61,14 +62,26 @@ class HomeController {
         state.context, CreateInventoryScreen.routeName);
     if (inventory == null) {
       // create screen canceled by BACK button
+      // state.callSetState(() {
+      //   state.model.inventoryList!.sort((a, b) {
+      //     return a.title.compareTo(b.title);
+      //   });
+      // });
       return;
     }
+
     var newInventory = inventory as Inventory;
     state.callSetState(() {
       state.model.inventoryList!.insert(
         0,
         newInventory,
       );
+    });
+
+    state.callSetState(() {
+      state.model.inventoryList!.sort((a, b) {
+        return a.title.compareTo(b.title);
+      });
     });
   }
 
@@ -86,7 +99,11 @@ class HomeController {
         );
       }
     } finally {
-      state.callSetState(() {});
+      state.callSetState(() {
+        state.model.inventoryList!.sort((a, b) {
+          return a.title.compareTo(b.title);
+        });
+      });
     }
   }
 }

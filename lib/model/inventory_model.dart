@@ -54,8 +54,4 @@ class Inventory {
     String? lowerCase = value?.toLowerCase();
     return value == null || value.trim().length < 2 ? 'Title too short' : null;
   }
-
-  // static int? validateQuantity(int? value) {
-  //   // return value == null || value.trim().length < 7 ? 'Memo too short' : null;
-  // }
 }

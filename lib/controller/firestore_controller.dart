@@ -15,6 +15,7 @@ Future<List<Inventory>> getInventoryList({required String email}) async {
   QuerySnapshot querySnapshot = await FirebaseFirestore.instance
       .collection(inventoryCollection)
       .where(DocKeyPhotoMemo.createdBy.name, isEqualTo: email)
+      // .orderBy(DocKeyPhotoMemo.title)
       .get();
   var result = <Inventory>[];
   for (var doc in querySnapshot.docs) {

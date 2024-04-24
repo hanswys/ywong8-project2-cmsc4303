@@ -10,19 +10,14 @@ class CreateInventoryModel {
     tempInventory = Inventory(
       createdBy: '',
       title: '',
-      quantity: '0',
+      quantity: '1',
     );
   }
 
   void onSavedTitle(String? value) {
     if (value != null) {
-      tempInventory.title = value;
+      String lowerCaseString = value.toLowerCase();
+      tempInventory.title = lowerCaseString;
     }
   }
-
-  // void onSavedQuantity(String? value) {
-  //   if (value != null) {
-  //     tempInventory.quantity = value;
-  //   }
-  // }
 }
