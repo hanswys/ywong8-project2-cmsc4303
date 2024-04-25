@@ -115,7 +115,8 @@ class HomeState extends State<HomeScreen> {
                 selected: model.selectedIndex == index,
                 selectedColor: Colors.redAccent[100],
                 subtitle: index == model.selectedIndex
-                    ? selectedIcon(model.inventoryList![index].quantity)
+                    ? selectedIcon(
+                        model.inventoryList![index].quantity, inventory)
                     : null,
                 title: Text('${inventory.title} (qty: ${inventory.quantity}) '),
                 tileColor: Colors.green,
@@ -131,7 +132,7 @@ class HomeState extends State<HomeScreen> {
     }
   }
 
-  Widget selectedIcon(String quantity) {
+  Widget selectedIcon(String quantity, Inventory inventory) {
     int numberquantity = int.parse(quantity);
     if (model.isEdit == false) {
       model.tempQuantity = numberquantity;
@@ -154,7 +155,15 @@ class HomeState extends State<HomeScreen> {
         ),
         SizedBox(width: 12),
         IconButton(
-          onPressed: con.update,
+          onPressed: () {
+            if (model.tempQuantity == 0) {
+              con.delete();
+              return;
+            }
+            con.update(inventory);
+            con.loadInventoryList();
+            con.loadInventoryNameList();
+          },
           icon: Icon(Icons.check),
           color: Colors.purple,
         ),

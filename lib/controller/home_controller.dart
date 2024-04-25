@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:lesson6/controller/auth_controller.dart';
 import 'package:lesson6/controller/firestore_controller.dart';
@@ -81,22 +83,23 @@ class HomeController {
         await getInventoryDisplayNames(email: state.model.user.email!);
   }
 
-  void delete() {}
-
-  void update() async {
-    print('Updating inventory: $state.model.title');
+  void update(Inventory inventory) async {
+    print(state.model.tempInventory.title);
     String quantity = state.model.tempQuantity.toString();
-    // FormState? currentState = state.formKey.currentState;
-    // if (currentState == null) return;
-    // if (!currentState.validate()) return;
-    // currentState.save();
+    // if (state.model.tempQuantity == 0) {
+    //   delete();
+    // }
 
     await updateInventory(
-      docId: state.model.tempInventory.docId!,
+      docId: inventory.docId!,
       update: {
         'quantity': quantity,
       },
     );
+    state.callSetState(() {
+      state.model.isEdit = false;
+      state.model.selectedIndex = null;
+    });
   }
 
   void setUpdatedFields(Map<String, dynamic> fieldsToUpdate) {
@@ -121,11 +124,35 @@ class HomeController {
 
   void cancel() {
     state.callSetState(() {
-      state.model.selectedIndex = null; // cancel selection
+      state.model.selectedIndex = null;
     });
   }
 
   void onCancel() {
     Navigator.of(state.context).pop();
+  }
+
+  Future<void> delete() async {
+    Inventory p = state.model.inventoryList![state.model.selectedIndex!];
+    try {
+      await deleteDoc(docId: p.docId!);
+      state.callSetState(() {
+        state.model.inventoryList!.removeAt(state.model.selectedIndex!);
+        state.model.selectedIndex = null;
+        state.model.isEdit = false;
+      });
+    } catch (e) {
+      state.callSetState(() {
+        state.model.selectedIndex = null;
+        state.model.isEdit = false;
+      });
+      print('========= delete failed $e');
+      if (state.mounted) {
+        showSnackbar(
+          context: state.context,
+          message: 'Delete failed: $e',
+        );
+      }
+    }
   }
 }

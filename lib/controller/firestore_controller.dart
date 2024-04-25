@@ -58,9 +58,21 @@ Future<void> updateInventory({
   required String docId,
   required Map<String, dynamic> update,
 }) async {
+  try {
+    await FirebaseFirestore.instance
+        .collection(inventoryCollection)
+        .doc(docId)
+        .update(update);
+  } catch (e) {
+    print('Error updating field: $e');
+  }
+}
 
-  await FirebaseFirestore.instance
+  void delete({
+  required String docId,
+}) async{
+     await FirebaseFirestore.instance
       .collection(inventoryCollection)
       .doc(docId)
-      .update(update);
-}
+      .delete();
+  }
