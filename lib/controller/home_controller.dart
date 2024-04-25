@@ -27,15 +27,12 @@ class HomeController {
   }
 
   Future<void> save() async {
-    print('con click');
     FormState? currentState = state.formKey.currentState;
     if (currentState == null) return;
     if (!currentState.validate()) return;
 
     currentState.save();
     try {
-      // state.callSetState(
-      //     () => state.model.progressMessage = 'Saving PhotoMemo ...');
       state.model.tempInventory.createdBy = state.model.user.email!;
       String docId = await addInventory(inventory: state.model.tempInventory);
       state.model.tempInventory.docId = docId;
@@ -57,28 +54,6 @@ class HomeController {
     }
   }
 
-  // Future<void> gotoCreateInventory() async {
-  //   final inventory = await Navigator.pushNamed(
-  //       state.context, CreateInventoryScreen.routeName);
-  //   if (inventory == null) {
-  //     return;
-  //   }
-
-  //   var newInventory = inventory as Inventory;
-  //   state.callSetState(() {
-  //     state.model.inventoryList!.insert(
-  //       0,
-  //       newInventory,
-  //     );
-  //   });
-
-  //   state.callSetState(() {
-  //     state.model.inventoryList!.sort((a, b) {
-  //       return a.title.compareTo(b.title);
-  //     });
-  //   });
-  // }
-
   void loadInventoryList() async {
     try {
       state.model.inventoryList =
@@ -93,30 +68,39 @@ class HomeController {
         );
       }
     } finally {
-      state.callSetState(() {});
-      // state.callSetState(() {
-      //   state.model.inventoryList!.sort((a, b) {
-      //     return a.title.compareTo(b.title);
-      //   });
-      // });
+      state.callSetState(() {
+        state.model.inventoryList!.sort((a, b) {
+          return a.title.compareTo(b.title);
+        });
+      });
     }
+  }
+
+  void loadInventoryNameList() async {
+    state.model.inventoryNameList =
+        await getInventoryDisplayNames(email: state.model.user.email!);
   }
 
   void delete() {}
 
   void update() async {
-    // Map<String, dynamic> fieldsToUpdate = {};
+    print('Updating inventory: $state.model.title');
+    String quantity = state.model.tempQuantity.toString();
+    // FormState? currentState = state.formKey.currentState;
+    // if (currentState == null) return;
+    // if (!currentState.validate()) return;
+    // currentState.save();
 
-    // // tempInventory = Inventory.clone();
-    // setUpdatedFields(fieldsToUpdate);
-
-    // await updatePhotoMemo(
-    //   // docId: state.model.docId!,
-    //   update: fieldsToUpdate,
-    // );
+    await updateInventory(
+      docId: state.model.tempInventory.docId!,
+      update: {
+        'quantity': quantity,
+      },
+    );
   }
 
   void setUpdatedFields(Map<String, dynamic> fieldsToUpdate) {
+    print('this is $state.model.tempQuantity');
     fieldsToUpdate[DocKeyPhotoMemo.quantity.name] = state.model.tempQuantity;
     print('$DocKeyPhotoMemo.quantity.name');
   }

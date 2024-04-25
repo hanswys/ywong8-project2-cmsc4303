@@ -5,7 +5,8 @@ class HomeModel {
   User user;
   List<Inventory>? inventoryList;
   late Inventory tempInventory;
-  // List<Inventory>? inventoryNameList;
+  List<String>? inventoryNameList;
+
   HomeModel(this.user) {
     tempInventory = Inventory(
       createdBy: '',
@@ -13,6 +14,7 @@ class HomeModel {
       quantity: '1',
     );
   }
+
   int? selectedIndex;
   String? progressMessage;
   int tempQuantity = 0;
@@ -23,10 +25,18 @@ class HomeModel {
       String lowerCaseString = value.toLowerCase();
       tempInventory.title = lowerCaseString;
     }
-    // print('$tempInventory.title');
   }
 
-  static String? validateTitle(String? value) {
+  String? validateTitle(String? value) {
+    if (value != null) {
+      String lowerCaseString = value.toLowerCase();
+      for (var name in inventoryNameList!) {
+        if (name == lowerCaseString.trim()) {
+          return 'Existing inventory';
+        }
+      }
+    }
+
     return value == null || value.trim().length < 2 ? 'Title too short' : null;
   }
 

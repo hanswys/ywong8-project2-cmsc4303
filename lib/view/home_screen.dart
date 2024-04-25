@@ -27,6 +27,7 @@ class HomeState extends State<HomeScreen> {
     con = HomeController(this);
     model = HomeModel(currentUser!);
     con.loadInventoryList();
+    con.loadInventoryNameList();
   }
 
   @override
@@ -47,15 +48,15 @@ class HomeState extends State<HomeScreen> {
       body: bodyView(),
       drawer: drawerView(context),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await openDialog();
+        onPressed: () {
+          openDialog();
         },
         child: const Icon(Icons.add),
       ),
     );
   }
 
-  Future<void> openDialog() => showDialog(
+  void openDialog() => showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('Add a New Item'),
@@ -64,7 +65,7 @@ class HomeState extends State<HomeScreen> {
             child: TextFormField(
               autofocus: true,
               decoration: const InputDecoration(hintText: 'Name'),
-              validator: HomeModel.validateTitle,
+              validator: model.validateTitle,
               onSaved: model.onSavedTitle,
             ),
           ),
@@ -72,7 +73,10 @@ class HomeState extends State<HomeScreen> {
             TextButton(
                 onPressed: () {
                   print('click');
+                  // model.printNames();
                   con.save();
+                  con.loadInventoryList();
+                  con.loadInventoryNameList();
                 },
                 child: const Text('Create')),
             TextButton(
@@ -108,11 +112,11 @@ class HomeState extends State<HomeScreen> {
           return Column(
             children: [
               ListTile(
-                // selected: model.selectedIndex == index,
-                // selectedColor: Colors.redAccent[100],
-                // subtitle: index == model.selectedIndex
-                //     ? selectedIcon(model.inventoryList![index].quantity)
-                //     : null,
+                selected: model.selectedIndex == index,
+                selectedColor: Colors.redAccent[100],
+                subtitle: index == model.selectedIndex
+                    ? selectedIcon(model.inventoryList![index].quantity)
+                    : null,
                 title: Text('${inventory.title} (qty: ${inventory.quantity}) '),
                 tileColor: Colors.green,
                 onLongPress: () => con.onLongPress(index),

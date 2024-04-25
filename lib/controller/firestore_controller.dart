@@ -28,27 +28,39 @@ Future<List<Inventory>> getInventoryList({required String email}) async {
   return result;
 }
 
-// Future<void> displayInventoryNames({required String email}) async {
-//   List<Inventory> inventoryList = await getInventoryList(email: email);
-//   // Extract titles from the inventory items
-//   // List<String> inventoryNames =
-//   //     inventoryList.map((item) => item.title).toList();
-//   state.model.inventoryNameList =
-//       inventoryList.map((item) => item.title).toList();
+Future<List<String>> getInventoryDisplayNames({required String email}) async {
+  QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+      .collection(inventoryCollection)
+      .where(DocKeyPhotoMemo.createdBy.name, isEqualTo: email)
+      .get();
 
-//   // Display the inventory names
-//   print('Inventory Names:');
-//   for (var name in inventoryNames) {
-//     print(name);
-//   }
-// }
+  List<String> displayNames = [];
 
-// Future<void> updatePhotoMemo({
-//   required String docId,
-//   required Map<String, dynamic> update,
-// }) async {
-//   await FirebaseFirestore.instance
-//       .collection(inventoryCollection)
-//       .doc(docId)
-//       .update(update);
-// }
+  for (var doc in querySnapshot.docs) {
+    if (doc.data() != null) {
+      var document = doc.data() as Map<String, dynamic>;
+      var inventory = Inventory.fromFirestoreDoc(doc: document, docId: doc.id);
+      displayNames.add(inventory.title);
+    }
+  }
+
+  return displayNames;
+}
+
+Future<void> deleteDoc({required String docId}) async {
+  await FirebaseFirestore.instance
+      .collection(inventoryCollection)
+      .doc(docId)
+      .delete();
+}
+
+Future<void> updateInventory({
+  required String docId,
+  required Map<String, dynamic> update,
+}) async {
+
+  await FirebaseFirestore.instance
+      .collection(inventoryCollection)
+      .doc(docId)
+      .update(update);
+}

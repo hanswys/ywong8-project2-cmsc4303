@@ -7,7 +7,6 @@ class Inventory {
   String createdBy; // email
   String title;
   String quantity;
-  List<Inventory>? inventoryNameList;
 
   Inventory({
     this.docId,
