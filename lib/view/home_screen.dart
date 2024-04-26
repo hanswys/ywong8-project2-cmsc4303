@@ -111,19 +111,24 @@ class HomeState extends State<HomeScreen> {
           Inventory inventory = model.inventoryList![index];
           return Column(
             children: [
-              ListTile(
-                selected: model.selectedIndex == index,
-                selectedColor: Colors.redAccent[100],
-                subtitle: index == model.selectedIndex
-                    ? selectedIcon(
-                        model.inventoryList![index].quantity, inventory)
-                    : null,
-                title: Text('${inventory.title} (qty: ${inventory.quantity}) '),
-                tileColor: Colors.green,
-                onLongPress: () => con.onLongPress(index),
-              ),
-              const SizedBox(
-                height: 10,
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: ListTile(
+                  selected: model.selectedIndex == index,
+                  selectedColor: Colors.redAccent[100],
+                  subtitle: index == model.selectedIndex
+                      ? selectedIcon(
+                          model.inventoryList![index].quantity, inventory)
+                      : null,
+                  title:
+                      Text('${inventory.title} (qty: ${inventory.quantity}) '),
+                  tileColor: Colors.pink[200],
+                  textColor: Colors.white,
+                  onLongPress: () => con.onLongPress(index),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
               ),
             ],
           );

@@ -32,7 +32,7 @@ class HomeModel {
       String lowerCaseString = value.toLowerCase();
       for (var name in inventoryNameList!) {
         if (name == lowerCaseString.trim()) {
-          return 'Existing inventory';
+          return '$name already exists';
         }
       }
     }
