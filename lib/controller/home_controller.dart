@@ -45,11 +45,10 @@ class HomeController {
       state.callSetState(() => state.model.progressMessage = null);
     } catch (e) {
       state.callSetState(() => state.model.progressMessage = null);
-      print('************** Save photomemo erro $e');
       if (state.mounted) {
         showSnackbar(
           context: state.context,
-          message: 'Save photomemo error $e',
+          message: 'Save inventory error $e',
           seconds: 10,
         );
       }
@@ -65,7 +64,7 @@ class HomeController {
       if (state.mounted) {
         showSnackbar(
           context: state.context,
-          message: 'Failed to load PhotoMemo list: $e',
+          message: 'Failed to load Inventory list: $e',
           seconds: 10,
         );
       }
@@ -84,11 +83,7 @@ class HomeController {
   }
 
   void update(Inventory inventory) async {
-    print(state.model.tempInventory.title);
     String quantity = state.model.tempQuantity.toString();
-    // if (state.model.tempQuantity == 0) {
-    //   delete();
-    // }
 
     await updateInventory(
       docId: inventory.docId!,
@@ -103,9 +98,7 @@ class HomeController {
   }
 
   void setUpdatedFields(Map<String, dynamic> fieldsToUpdate) {
-    print('this is $state.model.tempQuantity');
     fieldsToUpdate[DocKeyPhotoMemo.quantity.name] = state.model.tempQuantity;
-    print('$DocKeyPhotoMemo.quantity.name');
   }
 
   void add() {

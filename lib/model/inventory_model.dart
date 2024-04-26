@@ -15,23 +15,6 @@ class Inventory {
     required this.quantity,
   });
 
-  Inventory clone() {
-    var copy = Inventory(
-      docId: docId,
-      createdBy: createdBy,
-      title: title,
-      quantity: quantity,
-    );
-    return copy;
-  }
-
-  // void copyFrom(Inventory i) {
-  //   docId = i.docId;
-  //   createdBy = i.createdBy;
-  //   title = title;
-  //   quantity = quantity;
-  // }
-
   factory Inventory.fromFirestoreDoc({
     required Map<String, dynamic> doc,
     required String docId,

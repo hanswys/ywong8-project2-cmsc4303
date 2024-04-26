@@ -30,13 +30,6 @@ class HomeState extends State<HomeScreen> {
     con.loadInventoryNameList();
   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-
-    super.dispose();
-  }
-
   void callSetState(fn) => setState(fn);
 
   @override
@@ -72,8 +65,6 @@ class HomeState extends State<HomeScreen> {
           actions: [
             TextButton(
                 onPressed: () {
-                  print('click');
-                  // model.printNames();
                   con.save();
                   con.loadInventoryList();
                   con.loadInventoryNameList();
@@ -148,17 +139,17 @@ class HomeState extends State<HomeScreen> {
       children: [
         IconButton(
           onPressed: model.tempQuantity > 0 ? con.minus : null,
-          icon: Icon(Icons.remove),
+          icon: const Icon(Icons.remove),
           color: Colors.red,
         ),
-        SizedBox(width: 8),
+        const SizedBox(width: 8),
         Text('${model.tempQuantity}'),
         IconButton(
           onPressed: con.add,
-          icon: Icon(Icons.add),
+          icon: const Icon(Icons.add),
           color: Colors.purple,
         ),
-        SizedBox(width: 12),
+        const SizedBox(width: 12),
         IconButton(
           onPressed: () {
             if (model.tempQuantity == 0) {
@@ -169,13 +160,13 @@ class HomeState extends State<HomeScreen> {
             con.loadInventoryList();
             con.loadInventoryNameList();
           },
-          icon: Icon(Icons.check),
+          icon: const Icon(Icons.check),
           color: Colors.purple,
         ),
-        SizedBox(width: 12),
+        const SizedBox(width: 12),
         IconButton(
           onPressed: con.cancel,
-          icon: Icon(Icons.cancel),
+          icon: const Icon(Icons.cancel),
           color: Colors.purple,
         ),
       ],
